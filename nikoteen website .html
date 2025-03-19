@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.4">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">import React, { useState } from "react";</p>
+<p class="p1">import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";</p>
+<p class="p1">import { Card, CardContent } from "@/components/ui/card";</p>
+<p class="p1">import { Button, Select } from "@/components/ui/button";</p>
+<p class="p1">import { ShoppingCart, CreditCard, Trash } from "lucide-react";</p>
+<p class="p2"><br></p>
+<p class="p1">const products = [</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ id: 1, name: "Classic T-Shirt", price: 29.99, image: "https://via.placeholder.com/150" },</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ id: 2, name: "Denim Jacket", price: 59.99, image: "https://via.placeholder.com/150" },</p>
+<p class="p1"><span class="Apple-converted-space">  </span>{ id: 3, name: "Slim Fit Jeans", price: 49.99, image: "https://via.placeholder.com/150" },</p>
+<p class="p1">];</p>
+<p class="p2"><br></p>
+<p class="p1">const LandingPage = () =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div className="p-6 text-center bg-gray-100 min-h-screen flex flex-col justify-center items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1 className="text-5xl font-bold"&gt;Welcome to Nikoteen&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p className="mt-4 text-lg text-gray-700"&gt;Premium Clothing for Every Occasion&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;Link to="/products" className="mt-6 bg-blue-500 text-white px-6 py-3 rounded text-lg"&gt;Shop Now&lt;/Link&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">);</p>
+<p class="p2"><br></p>
+<p class="p1">const Home = () =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div className="p-6 text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1 className="text-3xl font-bold"&gt;Explore Our Clothing Collection&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p className="mt-2"&gt;Trendy and Comfortable Apparel&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;Link to="/products" className="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded"&gt;Shop Now&lt;/Link&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">);</p>
+<p class="p2"><br></p>
+<p class="p1">const ProductView = ({ addToCart }) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const [selectedSize, setSelectedSize] = useState({});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const handleSizeChange = (productId, size) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>setSelectedSize((prev) =&gt; ({ ...prev, [productId]: size }));</p>
+<p class="p1"><span class="Apple-converted-space">  </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>return (</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{products.map((product) =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;Card key={product.id} className="p-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;CardContent&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;img src={product.image} alt={product.name} className="w-full" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2 className="text-xl font-semibold mt-2"&gt;{product.name}&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p className="text-gray-600"&gt;${product.price}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;select</p>
+<p class="p1"><span class="Apple-converted-space">              </span>className="mt-2 p-2 border rounded w-full"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>value={selectedSize[product.id] || ""}</p>
+<p class="p1"><span class="Apple-converted-space">              </span>onChange={(e) =&gt; handleSizeChange(product.id, e.target.value)}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;option value=""&gt;Select Size&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;option value="Small"&gt;Small&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;option value="Medium"&gt;Medium&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;option value="Large"&gt;Large&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;option value="Extra Large"&gt;Extra Large&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;Button</p>
+<p class="p1"><span class="Apple-converted-space">              </span>className="mt-2 w-full flex items-center justify-center"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>onClick={() =&gt; addToCart({ ...product, size: selectedSize[product.id] || "Unknown" })}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;ShoppingCart className="mr-2" /&gt; Add to Cart</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/Button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/CardContent&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/Card&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>))}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>);</p>
+<p class="p1">};</p>
+<p class="p2"><br></p>
+<p class="p1">const Cart = ({ cart, removeFromCart }) =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div className="p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2 className="text-2xl font-bold"&gt;Shopping Cart&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{cart.length === 0 ? (</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;p&gt;Your cart is empty.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>) : (</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{cart.map((item, index) =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div key={index} className="flex justify-between items-center border-b p-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p&gt;{item.name} (Size: {item.size}) - ${item.price}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;Button className="text-red-500" onClick={() =&gt; removeFromCart(index)}&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;Trash /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/Button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>))}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p className="mt-4 font-bold"&gt;Total: ${cart.reduce((total, item) =&gt; total + item.price, 0).toFixed(2)}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;Link to="/checkout" className="mt-4 inline-block bg-green-500 text-white px-4 py-2 rounded"&gt;Proceed to Checkout&lt;/Link&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>)}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">);</p>
+<p class="p2"><br></p>
+<p class="p1">const Contact = () =&gt; (</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div className="p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h2 className="text-2xl font-bold"&gt;Contact Us&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;Email: support@nikoteen.com&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;Phone: +1 234 567 890&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p1">);</p>
+<p class="p2"><br></p>
+<p class="p1">const Checkout = ({ cart }) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const handlePayment = async () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const response = await fetch("http://localhost:5000/api/checkout", {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>method: "POST",</p>
+<p class="p1"><span class="Apple-converted-space">      </span>headers: { "Content-Type": "application/json" },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>body: JSON.stringify({ cart }),</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const data = await response.json();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>alert(data.message);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>return (</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div className="p-6 text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;h2 className="text-2xl font-bold"&gt;Checkout&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;p&gt;Total: ${cart.reduce((total, item) =&gt; total + item.price, 0).toFixed(2)}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;Button className="mt-2 flex items-center justify-center" onClick={handlePayment}&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;CreditCard className="mr-2" /&gt; Pay Now</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/Button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>);</p>
+<p class="p1">};</p>
+<p class="p2"><br></p>
+<p class="p1">const App = () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const [cart, setCart] = useState([]);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>const addToCart = (product) =&gt; setCart([...cart, product]);</p>
+<p class="p1"><span class="Apple-converted-space">  </span>const removeFromCart = (index) =&gt; setCart(cart.filter((_, i) =&gt; i !== index));</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>return (</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;Router&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;nav className="p-4 bg-gray-800 text-white flex justify-between"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;Link to="/" className="font-bold"&gt;Nikoteen&lt;/Link&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;Link to="/cart" className="flex items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;ShoppingCart className="mr-1" /&gt; ({cart.length})</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/Link&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/nav&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;Routes&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;Route path="/" element={&lt;LandingPage /&gt;} /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;Route path="/home" element={&lt;Home /&gt;} /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;Route path="/products" element={&lt;ProductView addToCart={addToCart} /&gt;} /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;Route path="/cart" element={&lt;Cart cart={cart} removeFromCart={removeFromCart} /&gt;} /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;Route path="/contact" element={&lt;Contact /&gt;} /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;Route path="/checkout" element={&lt;Checkout cart={cart} /&gt;} /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/Routes&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/Router&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>);</p>
+<p class="p1">};</p>
+<p class="p2"><br></p>
+<p class="p1">export default App;</p>
+</body>
+</html>
